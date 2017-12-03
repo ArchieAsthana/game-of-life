@@ -8,13 +8,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameOfLifePanel extends JPanel {
+class GameOfLifePanel extends JPanel {
     private JButton[][] grid;
     private GameOfLifeBoard board;
     private int columns;
     private int rows;
 
-    public GameOfLifePanel(int columns, int rows) {
+    GameOfLifePanel(int columns, int rows) {
         this.columns = columns;
         this.rows = rows;
         setLayout(new GridLayout(rows, columns));
@@ -22,16 +22,14 @@ public class GameOfLifePanel extends JPanel {
         setupGrid();
     }
 
-    public void clear() {
-        removeAll();
-        setupGrid();
-        this.board.clearBoard();
+    void clear() {
+        board.clearBoard();
+        updateGrid();
     }
 
-    public void showNextGeneration() {
+    void showNextGeneration() {
         board = board.nextGeneration();
-        removeAll();
-        setupGrid();
+        updateGrid();
     }
 
     private void setupGrid() {
@@ -44,23 +42,35 @@ public class GameOfLifePanel extends JPanel {
         }
     }
 
+    private void updateGrid() {
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < columns; col++) {
+                setButtonBackground(grid[row][col], board.isPopulated(row, col));
+            }
+        }
+    }
+
     private void setupBoard() {
         board = new GameOfLifeBoard(rows, columns);
     }
 
-    private JButton cellButton(int row, int col) {
-        JButton button = new JButton();
+    private JButton cellButton(final int row, final int col) {
+        final JButton button = new JButton();
         button.setBorder(new EmptyBorder(0, 0, 0, 0));
         button.setOpaque(true);
-        button.setBackground(board.isPopulated(row, col) ? Color.YELLOW : Color.WHITE);
+        setButtonBackground(button, board.isPopulated(row, col));
 
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 board.togglePopulated(row, col);
-                button.setBackground(board.isPopulated(row, col) ? Color.YELLOW : Color.WHITE);
+                setButtonBackground(button, board.isPopulated(row, col));
             }
         });
 
         return button;
+    }
+
+    private void setButtonBackground(JButton button, boolean isPopulated) {
+        button.setBackground(isPopulated ? Color.yellow : Color.white);
     }
 }
