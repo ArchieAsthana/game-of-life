@@ -37,11 +37,7 @@ public class GameOfLifeBoard {
     }
 
     public void togglePopulated(int row, int col) {
-        if (grid[row][col] == 0) {
-            grid[row][col] = 1;
-        } else {
-            grid[row][col] = 0;
-        }
+        grid[row][col] = isPopulated(row, col) ? 0 : 1;
     }
 
     public boolean isPopulated(int row, int col) {
