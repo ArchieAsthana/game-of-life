@@ -5,21 +5,28 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GameOfLifeApplet extends JApplet {
-
-    private int TICK_DELAY = 500;
+    private final int ROWS = 50;
+    private final int COLS = 50;
+    private final int TICK_DELAY = 250;
     private GameOfLifePanel gameOfLifePanel;
     private Timer gameTimer;
 
     public void init() {
         Container container = getContentPane();
-        container.setLayout(new GridLayout(2, 1));
+        JPanel gameContainerPanel = gameContainerPanel();
+        container.add(gameContainerPanel);
+        container.setSize(gameContainerPanel.getSize());
+    }
+
+    private JPanel gameContainerPanel() {
+        JPanel panel = new JPanel();
 
         // Add the game of life panel to the applet.
-        gameOfLifePanel = new GameOfLifePanel(50, 50);
-        container.add(gameOfLifePanel, BorderLayout.PAGE_END);
+        gameOfLifePanel = new GameOfLifePanel(ROWS, COLS);
+        panel.add(gameOfLifePanel, BorderLayout.PAGE_END);
 
         // Add the game of life control panel to the applet.
-        container.add(gameMenu(), BorderLayout.PAGE_END);
+        panel.add(toolBar(), BorderLayout.PAGE_END);
 
         gameTimer = new Timer(TICK_DELAY, new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -27,16 +34,20 @@ public class GameOfLifeApplet extends JApplet {
                 gameOfLifePanel.updateUI();
             }
         });
+
+        return panel;
     }
 
-    private JPanel gameMenu() {
-        JPanel menu = new JPanel();
-        menu.add(startButton());
-        menu.add(stopButton());
-        menu.add(nextGenButton());
-        menu.add(clearButton());
+    private JToolBar toolBar() {
+        JToolBar toolBar = new JToolBar();
+        toolBar.setFloatable(false);
 
-        return menu;
+        toolBar.add(startButton());
+        toolBar.add(stopButton());
+        toolBar.add(nextGenButton());
+        toolBar.add(clearButton());
+
+        return toolBar;
     }
 
     private JButton startButton() {

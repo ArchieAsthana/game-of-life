@@ -56,7 +56,7 @@ class GameOfLifePanel extends JPanel {
 
     private JButton cellButton(final int row, final int col) {
         final JButton button = new JButton();
-        button.setBorder(new EmptyBorder(0, 0, 0, 0));
+        button.setBorder(new EmptyBorder(4, 4, 4, 4));
         button.setOpaque(true);
         setButtonBackground(button, board.isPopulated(row, col));
 
@@ -71,6 +71,6 @@ class GameOfLifePanel extends JPanel {
     }
 
     private void setButtonBackground(JButton button, boolean isPopulated) {
-        button.setBackground(isPopulated ? Color.yellow : Color.white);
+        button.setBackground(isPopulated ? Color.orange : Color.gray);
     }
 }
