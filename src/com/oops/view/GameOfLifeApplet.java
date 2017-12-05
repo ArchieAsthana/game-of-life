@@ -11,6 +11,9 @@ public class GameOfLifeApplet extends JApplet {
     private GameOfLifePanel gameOfLifePanel;
     private Timer gameTimer;
 
+    /**
+     * Holds all the buttons in a container on a panel.
+     */
     public void init() {
         Container container = getContentPane();
         JPanel gameContainerPanel = gameContainerPanel();
@@ -18,6 +21,11 @@ public class GameOfLifeApplet extends JApplet {
         container.setSize(gameContainerPanel.getSize());
     }
 
+    /**
+     * The panel has game of life panel and a game timer
+     *
+     * @return - panel
+     */
     private JPanel gameContainerPanel() {
         JPanel panel = new JPanel();
 
@@ -38,6 +46,11 @@ public class GameOfLifeApplet extends JApplet {
         return panel;
     }
 
+    /**
+     * Contains all the buttons in a toolbar
+     *
+     * @return toolbar
+     */
     private JToolBar toolBar() {
         JToolBar toolBar = new JToolBar();
         toolBar.setFloatable(false);
@@ -50,6 +63,11 @@ public class GameOfLifeApplet extends JApplet {
         return toolBar;
     }
 
+    /**
+     * starts the game timer
+     *
+     * @return - start button
+     */
     private JButton startButton() {
         JButton startButton = new JButton("Start");
         startButton.addActionListener(new ActionListener() {
@@ -61,6 +79,11 @@ public class GameOfLifeApplet extends JApplet {
         return startButton;
     }
 
+    /**
+     * Stop from creating the next generation
+     *
+     * @return - stop action
+     */
     private JButton stopButton() {
         JButton stopButton = new JButton("Stop");
         stopButton.addActionListener(new ActionListener() {
@@ -72,6 +95,11 @@ public class GameOfLifeApplet extends JApplet {
         return stopButton;
     }
 
+    /**
+     * Show the next generation on click
+     *
+     * @return - next generation
+     */
     private JButton nextGenButton() {
         JButton nextGenButton = new JButton("Next Generation");
         nextGenButton.addActionListener(new ActionListener() {
@@ -84,6 +112,9 @@ public class GameOfLifeApplet extends JApplet {
         return nextGenButton;
     }
 
+    /** Clears the screen
+     * @return - clear screen
+     */
     private JButton clearButton() {
         JButton clearButton = new JButton("Clear");
         clearButton.addActionListener(new ActionListener() {

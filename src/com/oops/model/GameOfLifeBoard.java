@@ -1,16 +1,29 @@
+/**
+ * @ author Archana Srivastava, harsh Raghuvansi, Surbhi patel, CS:580 OOPS, Instructor: James Fuller
+ * @ version December 1 2017
+ */
 package com.oops.model;
 
 public class GameOfLifeBoard {
+
     private int rows;
     private int cols;
     private int[][] grid;
 
+    /**
+     * constructor for game of life
+     * @param rows - returns rows
+     * @param cols - return cols
+     */
     public GameOfLifeBoard(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
         this.grid = new int[rows][cols];
     }
 
+    /**
+     * clears the board.
+     */
     public void clearBoard() {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
@@ -19,6 +32,10 @@ public class GameOfLifeBoard {
         }
     }
 
+    /**
+     * Go's through rows and cols and return the next gen status and then sets the status
+     * @return returns the new board
+     */
     public GameOfLifeBoard nextGeneration() {
         GameOfLifeBoard nextBoard = new GameOfLifeBoard(rows, cols);
 
@@ -32,18 +49,41 @@ public class GameOfLifeBoard {
         return nextBoard;
     }
 
+    /**
+     *Provides the status of the next generation
+     * @param row
+     * @param col
+     * @param value
+     */
     public void setStatus(int row, int col, int value) {
         grid[row][col] = value;
     }
 
+    /** Checks if the cell is populated.
+     *
+     * @param row
+     * @param col
+     */
     public void togglePopulated(int row, int col) {
         grid[row][col] = isPopulated(row, col) ? 0 : 1;
     }
 
+    /**
+     * If the cell value is populated returns value as 1.
+     * @param row
+     * @param col
+     * @return value 1
+     */
     public boolean isPopulated(int row, int col) {
         return grid[row][col] == 1;
     }
 
+    /**
+     * Returns the next generation if the rule
+     * @param row
+     * @param col
+     * @return next generation
+     */
     private int nextGenStatus(int row, int col) {
         int neighbors = neighbors(row, col);
         if (isPopulated(row, col)) {
@@ -53,6 +93,12 @@ public class GameOfLifeBoard {
         }
     }
 
+    /**
+     * Gets the adjacent neighbour  for the current cell
+     * @param row
+     * @param col
+     * @return - neighbors
+     */
     private int neighbors(int row, int col) {
         int neighbors = 0;
 
