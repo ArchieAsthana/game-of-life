@@ -4,6 +4,7 @@ import com.oops.model.GameOfLifeBoard;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +18,7 @@ class GameOfLifePanel extends JPanel {
      */
     private JButton[][] grid;
     /**
-     *
+     * Game of life board.
      */
     private GameOfLifeBoard board;
 
@@ -33,8 +34,9 @@ class GameOfLifePanel extends JPanel {
 
     /**
      * Constructor of game of life panel.
+     *
      * @param columns - The number of rows in game of life panel.
-     * @param rows - The number of cloumns in game of life panel.
+     * @param rows    - The number of cloumns in game of life panel.
      */
     GameOfLifePanel(int columns, int rows) {
         this.columns = columns;
@@ -42,6 +44,8 @@ class GameOfLifePanel extends JPanel {
         setLayout(new GridLayout(rows, columns));
         setupBoard();
         setupGrid();
+        
+
     }
 
     /**
@@ -93,16 +97,17 @@ class GameOfLifePanel extends JPanel {
 
     /**
      * Buttons for the panel with row and column.
+     *
      * @param row - The row of the cell.
      * @param col - The column of the cell.
      * @return - The cell buttons.
      */
     private JButton cellButton(final int row, final int col) {
         final JButton button = new JButton();
-        button.setBorder(new EmptyBorder(4, 4, 4, 4));
+        button.setPreferredSize(new Dimension(10, 10));
+        button.setBorder(new LineBorder(Color.black, 1, true));
         button.setOpaque(true);
         setButtonBackground(button, board.isPopulated(row, col));
-
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 board.togglePopulated(row, col);
@@ -115,10 +120,11 @@ class GameOfLifePanel extends JPanel {
 
     /**
      * Change button background color if cell populated.
-     * @param button - The cell Button in the panel.
+     *
+     * @param button      - The cell Button in the panel.
      * @param isPopulated - true if cell populated and change color, other wise false.
      */
     private void setButtonBackground(JButton button, boolean isPopulated) {
-        button.setBackground(isPopulated ? Color.orange : Color.gray);
+        button.setBackground(isPopulated ? Color.yellow : Color.gray);
     }
 }

@@ -33,12 +33,12 @@ public class GameOfLifeApplet extends JApplet {
      */
     private Timer gameTimer;
 
-
     public void init() {
         Container container = getContentPane();
         JPanel gameContainerPanel = gameContainerPanel();
         container.add(gameContainerPanel);
         container.setSize(gameContainerPanel.getSize());
+
     }
 
     /**
@@ -132,7 +132,9 @@ public class GameOfLifeApplet extends JApplet {
         return nextGenButton;
     }
 
-    /** Clears the screen of game of life panel.
+    /**
+     * Clears the screen of game of life panel.
+     *
      * @return - clear the game of life panel screen.
      */
     private JButton clearButton() {

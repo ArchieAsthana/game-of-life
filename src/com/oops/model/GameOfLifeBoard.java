@@ -102,7 +102,7 @@ public class GameOfLifeBoard {
     }
 
     /**
-     * Gives the adjacent neighbours for the given cell.
+     * If the given value is within bound/index then it will return the value.
      *
      * @param row - The row of the cell.
      * @param col - The column of the cell.
@@ -110,34 +110,28 @@ public class GameOfLifeBoard {
      */
     private int neighbors(int row, int col) {
         int neighbors = 0;
-
-        if (row - 1 >= 0 && col - 1 >= 0) {
-            neighbors += grid[row - 1][col - 1];
-        }
-        if (row - 1 >= 0) {
-            neighbors += grid[row - 1][col];
-        }
-        if (row - 1 >= 0 && col + 1 < cols) {
-            neighbors += grid[row - 1][col + 1];
-        }
-
-        if (col - 1 >= 0) {
-            neighbors += grid[row][col - 1];
-        }
-        if (col + 1 < cols) {
-            neighbors += grid[row][col + 1];
-        }
-
-        if (row + 1 < rows && col - 1 >= 0) {
-            neighbors += grid[row + 1][col - 1];
-        }
-        if (row + 1 < rows) {
-            neighbors += grid[row + 1][col];
-        }
-        if (row + 1 < rows && col + 1 < cols) {
-            neighbors += grid[row + 1][col + 1];
-        }
+        neighbors += neighborValue(row - 1, col - 1);
+        neighbors += neighborValue(row - 1, col);
+        neighbors += neighborValue(row - 1, col + 1);
+        neighbors += neighborValue(row, col - 1);
+        neighbors += neighborValue(row, col + 1);
+        neighbors += neighborValue(row + 1, col - 1);
+        neighbors += neighborValue(row + 1, col);
+        neighbors += neighborValue(row + 1, col + 1);
 
         return neighbors;
+    }
+
+    /**
+     * If the row and column are within the valid index.
+     * @param row - The row of the cell.
+     * @param col - The column of the cell.
+     * @return - returns 0 if the value is outside .
+     */
+    private int neighborValue(int row, int col) {
+        if (row >= 0 && row < rows && col >= 0 && col < cols) {
+            return grid[row][col];
+        }
+        return 0;
     }
 }
