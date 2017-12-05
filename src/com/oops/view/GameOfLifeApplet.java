@@ -4,16 +4,36 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Game of life Applet.
+ */
 public class GameOfLifeApplet extends JApplet {
+    /**
+     * Game of life applet with row size 50.
+     */
     private final int ROWS = 50;
-    private final int COLS = 50;
-    private final int TICK_DELAY = 250;
-    private GameOfLifePanel gameOfLifePanel;
-    private Timer gameTimer;
 
     /**
-     * Holds all the buttons in a container on a panel.
+     * Game of life applet with column size 50.
      */
+    private final int COLS = 50;
+
+    /**
+     * Delay between each generation.
+     */
+    private final int TICK_DELAY = 250;
+
+    /**
+     * Game of life panel.
+     */
+    private GameOfLifePanel gameOfLifePanel;
+
+    /**
+     * Game Timer for game of life panel.
+     */
+    private Timer gameTimer;
+
+
     public void init() {
         Container container = getContentPane();
         JPanel gameContainerPanel = gameContainerPanel();
@@ -22,9 +42,9 @@ public class GameOfLifeApplet extends JApplet {
     }
 
     /**
-     * The panel has game of life panel and a game timer
+     * Game of life container panel.
      *
-     * @return - panel
+     * @return - The next generation on game of life panel.
      */
     private JPanel gameContainerPanel() {
         JPanel panel = new JPanel();
@@ -47,9 +67,9 @@ public class GameOfLifeApplet extends JApplet {
     }
 
     /**
-     * Contains all the buttons in a toolbar
+     * Contains buttons in a toolbar.
      *
-     * @return toolbar
+     * @return - toolbar menu.
      */
     private JToolBar toolBar() {
         JToolBar toolBar = new JToolBar();
@@ -80,7 +100,7 @@ public class GameOfLifeApplet extends JApplet {
     }
 
     /**
-     * Stop from creating the next generation
+     * The next generation is not shown when stopButton is clicked.
      *
      * @return - stop action
      */
@@ -96,9 +116,9 @@ public class GameOfLifeApplet extends JApplet {
     }
 
     /**
-     * Show the next generation on click
+     * Show next generation on button click.
      *
-     * @return - next generation
+     * @return - next generation.
      */
     private JButton nextGenButton() {
         JButton nextGenButton = new JButton("Next Generation");
@@ -112,8 +132,8 @@ public class GameOfLifeApplet extends JApplet {
         return nextGenButton;
     }
 
-    /** Clears the screen
-     * @return - clear screen
+    /** Clears the screen of game of life panel.
+     * @return - clear the game of life panel screen.
      */
     private JButton clearButton() {
         JButton clearButton = new JButton("Clear");

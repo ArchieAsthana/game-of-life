@@ -1,28 +1,48 @@
-/**
- * @ author Archana Srivastava, harsh Raghuvansi, Surbhi patel, CS:580 OOPS, Instructor: James Fuller
+/*
+ * @ author Archana Srivastava, Harsh Raghuvansi, Surbhi Patel, CS:580 OOPS, Instructor: James Fuller
  * @ version December 1 2017
  */
 package com.oops.model;
 
+import sun.jvm.hotspot.utilities.Assert;
+
+/**
+ * Game of Life Board Class.
+ */
 public class GameOfLifeBoard {
 
+    /**
+     * Rows of the game of life board.
+     */
     private int rows;
+
+    /**
+     * Columns of the game of life board.
+     */
     private int cols;
+
+    /**
+     * An array of rows and columns of cell.
+     */
     private int[][] grid;
 
     /**
-     * constructor for game of life
-     * @param rows - returns rows
-     * @param cols - return cols
+     * Constructor for game of life board.
+     *
+     * @param rows - the number of rows in the game of life board. (Must be positive)
+     * @param cols - the number of cols in the game of life board. (Must be positive)
      */
     public GameOfLifeBoard(int rows, int cols) {
+        Assert.that(rows > 0, "Rows should not be negative.");
+        Assert.that(cols > 0, "Columns should not be negative.");
+
         this.rows = rows;
         this.cols = cols;
         this.grid = new int[rows][cols];
     }
 
     /**
-     * clears the board.
+     * Clears the game of life board.
      */
     public void clearBoard() {
         for (int row = 0; row < rows; row++) {
@@ -33,16 +53,16 @@ public class GameOfLifeBoard {
     }
 
     /**
-     * Go's through rows and cols and return the next gen status and then sets the status
-     * @return returns the new board
+     * Advance the game of life to the next generation.
+     *
+     * @return the next generation GameOfLifeBoard
      */
     public GameOfLifeBoard nextGeneration() {
         GameOfLifeBoard nextBoard = new GameOfLifeBoard(rows, cols);
 
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                int status = nextGenStatus(row, col);
-                nextBoard.setStatus(row, col, status);
+                nextBoard.grid[row][col] = nextGenCellValue(row, col);
             }
         }
 
@@ -50,41 +70,36 @@ public class GameOfLifeBoard {
     }
 
     /**
-     *Provides the status of the next generation
-     * @param row
-     * @param col
-     * @param value
-     */
-    public void setStatus(int row, int col, int value) {
-        grid[row][col] = value;
-    }
-
-    /** Checks if the cell is populated.
+     * Toggles the cell at the given row and column.
      *
-     * @param row
-     * @param col
+     * @param row - The row of the cell. (Must be positive)
+     * @param col - The column of the cell. (Must be positive)
      */
     public void togglePopulated(int row, int col) {
+        Assert.that(row > 0, "Row should not be negative");
+        Assert.that(col > 0, "Column should not be negative");
         grid[row][col] = isPopulated(row, col) ? 0 : 1;
     }
 
     /**
-     * If the cell value is populated returns value as 1.
-     * @param row
-     * @param col
-     * @return value 1
+     * Checks if the cell is populated at the given row and column.
+     *
+     * @param row - The row of the cell. (Must be positive)
+     * @param col - The column of the cell. (Must be positive)
+     * @return true if the cell is populated, otherwise false.
      */
     public boolean isPopulated(int row, int col) {
         return grid[row][col] == 1;
     }
 
     /**
-     * Returns the next generation if the rule
-     * @param row
-     * @param col
-     * @return next generation
+     * Gives the next generation of the cell at given row and column.
+     *
+     * @param row - The row of the cell.
+     * @param col - The column of the cell.
+     * @return returns zero or one for the nextGenCellValue.
      */
-    private int nextGenStatus(int row, int col) {
+    private int nextGenCellValue(int row, int col) {
         int neighbors = neighbors(row, col);
         if (isPopulated(row, col)) {
             return (neighbors < 2 || neighbors > 3) ? 0 : 1;
@@ -94,10 +109,11 @@ public class GameOfLifeBoard {
     }
 
     /**
-     * Gets the adjacent neighbour  for the current cell
-     * @param row
-     * @param col
-     * @return - neighbors
+     * Gives the adjacent neighbours for the given cell.
+     *
+     * @param row - The row of the cell.
+     * @param col - The column of the cell.
+     * @return - returns neighbor if the condition if true.
      */
     private int neighbors(int row, int col) {
         int neighbors = 0;
@@ -128,14 +144,6 @@ public class GameOfLifeBoard {
         if (row + 1 < rows && col + 1 < cols) {
             neighbors += grid[row + 1][col + 1];
         }
-
-//        for (int i = row - 1; i <= row + 1; i++) {
-//            for (int j = col - 1; j <= col + 1; j++) {
-//                if (i >= 0 && i < cols && j >= 0 && j < cols && (i != row && j != col)) {
-//                    neighbors += grid[i][j];
-//                }
-//            }
-//        }
 
         return neighbors;
     }

@@ -8,16 +8,33 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Game of life panel.
+ */
 class GameOfLifePanel extends JPanel {
+    /**
+     * Array of buttons
+     */
     private JButton[][] grid;
+    /**
+     *
+     */
     private GameOfLifeBoard board;
+
+    /**
+     * Columns of game of life panel.
+     */
     private int columns;
+
+    /**
+     * Rows of game of life panel.
+     */
     private int rows;
 
     /**
-     * Constructor of game of life panel
-     * @param columns - returns columns
-     * @param rows - rows
+     * Constructor of game of life panel.
+     * @param columns - The number of rows in game of life panel.
+     * @param rows - The number of cloumns in game of life panel.
      */
     GameOfLifePanel(int columns, int rows) {
         this.columns = columns;
@@ -28,7 +45,7 @@ class GameOfLifePanel extends JPanel {
     }
 
     /**
-     * Clear board and upgrades the grid
+     * Clears the game of life board and updates grid.
      */
     void clear() {
         board.clearBoard();
@@ -36,7 +53,7 @@ class GameOfLifePanel extends JPanel {
     }
 
     /**
-     * Displays the next generation on the board
+     * Displays the next generation on the board.
      */
     void showNextGeneration() {
         board = board.nextGeneration();
@@ -44,7 +61,7 @@ class GameOfLifePanel extends JPanel {
     }
 
     /**
-     * set the board with cell buttons
+     * set the board with rows and column of cell buttons
      */
     private void setupGrid() {
         grid = new JButton[rows][columns];
@@ -57,7 +74,7 @@ class GameOfLifePanel extends JPanel {
     }
 
     /**
-     * Change the cell color when populated
+     * Update grid, change color when the cell is populated.
      */
     private void updateGrid() {
         for (int row = 0; row < rows; row++) {
@@ -68,12 +85,18 @@ class GameOfLifePanel extends JPanel {
     }
 
     /**
-     *
+     * Advance to game of life panel to set up board.
      */
     private void setupBoard() {
         board = new GameOfLifeBoard(rows, columns);
     }
 
+    /**
+     * Buttons for the panel with row and column.
+     * @param row - The row of the cell.
+     * @param col - The column of the cell.
+     * @return - The cell buttons.
+     */
     private JButton cellButton(final int row, final int col) {
         final JButton button = new JButton();
         button.setBorder(new EmptyBorder(4, 4, 4, 4));
@@ -91,9 +114,9 @@ class GameOfLifePanel extends JPanel {
     }
 
     /**
-     * If Cell is Populated change cell color
-     * @param button - cell Button
-     * @param isPopulated -
+     * Change button background color if cell populated.
+     * @param button - The cell Button in the panel.
+     * @param isPopulated - true if cell populated and change color, other wise false.
      */
     private void setButtonBackground(JButton button, boolean isPopulated) {
         button.setBackground(isPopulated ? Color.orange : Color.gray);
