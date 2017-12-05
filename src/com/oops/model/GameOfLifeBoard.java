@@ -4,8 +4,6 @@
  */
 package com.oops.model;
 
-import sun.jvm.hotspot.utilities.Assert;
-
 /**
  * Game of Life Board Class.
  */
@@ -33,9 +31,6 @@ public class GameOfLifeBoard {
      * @param cols - the number of cols in the game of life board. (Must be positive)
      */
     public GameOfLifeBoard(int rows, int cols) {
-        Assert.that(rows > 0, "Rows should not be negative.");
-        Assert.that(cols > 0, "Columns should not be negative.");
-
         this.rows = rows;
         this.cols = cols;
         this.grid = new int[rows][cols];
@@ -76,8 +71,6 @@ public class GameOfLifeBoard {
      * @param col - The column of the cell. (Must be positive)
      */
     public void togglePopulated(int row, int col) {
-        Assert.that(row > 0, "Row should not be negative");
-        Assert.that(col > 0, "Column should not be negative");
         grid[row][col] = isPopulated(row, col) ? 0 : 1;
     }
 
